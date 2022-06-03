@@ -4,12 +4,18 @@
   box-sizing: border-box;
 }
 
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 10%;
+}
+
 .game-board {
-  width: 80%;
-  height: 500px;
+  width: 90%;
+  height: 90%;
   border-bottom: 8px solid rgb(35, 160, 35);
   background: linear-gradient(#87ceeb, #e0f6ff);
-  margin: 0 auto;
+  margin: auto;
   position: relative;
   overflow: hidden;
 }
@@ -35,6 +41,48 @@
   width: 500px;
   position: absolute;
   animation: clouds-animation 20s infinite linear;
+}
+
+.mario-game-over {
+  position: absolute;
+  width: 80px;
+  bottom: 0;
+  margin-left: 50px;
+  display: none;
+}
+
+.game-board-game-over {
+  animation: screen-game-over 1s forwards;
+}
+
+.game-over-board {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-over-content {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background: #fff;
+  border: 1px solid red;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes screen-game-over {
+  to {
+    filter: grayscale(1);
+  }
 }
 
 @keyframes pipe-animation {
