@@ -3,18 +3,15 @@ const marioGameOver = document.querySelector('.mario-game-over');
 const pipe = document.querySelector('.pipe');
 const gameBoard = document.querySelector('.game-board');
 const gameOverBoard = document.querySelector('.game-over-board');
+const resetGameButton = document.querySelector('#reset-game-button');
 
 let loop;
 const startGame = () => {
-  console.log('start');
   loop = setInterval(() => {
-    console.log('looping');
-
     const pipePosition = pipe.offsetLeft;
     const marioPosition = Number(window.getComputedStyle(mario).bottom.replace('px', ''));
 
-    if (pipePosition <= 100 && pipePosition > 20 && marioPosition < 80) {
-      console.log('morremo');
+    if (pipePosition <= 80 && pipePosition > 10 && marioPosition < 70) {
       pipe.style.animation = 'none';
       pipe.style.left = `${pipePosition}px`;
       
@@ -32,19 +29,43 @@ const startGame = () => {
   }, 10);
 };
 
-const resetGame = () => {
-  pipe.style.animation = 'pipe-animation 1.5s infinite linear';
-  pipe.style.left = '';
+let seconds = 3;
+let secondsLoop;
+const countSecondsToRestart = () => {
+  console.log('second', seconds);
+  
+  resetGameButton.style.pointerEvents = 'none';
+  resetGameButton.textContent = String(seconds);
 
-  mario.style.display = '';
-      
-  marioGameOver.style.display = 'none';
+  seconds -= 1;
+  secondsLoop = setTimeout(countSecondsToRestart, 1000);
+}
 
-  gameBoard.classList.remove('game-board-game-over'); 
+const resetGame = async () => {
+  countSecondsToRestart();
 
-  gameOverBoard.style.display = 'none';
+  setTimeout(() => {
+    console.log('count');
+    pipe.style.animation = 'pipe-animation 1.5s infinite linear';
+    pipe.style.left = '';
+  
+    mario.style.display = '';
+        
+    marioGameOver.style.display = 'none';
+  
+    gameBoard.classList.remove('game-board-game-over'); 
+  
+    gameOverBoard.style.display = 'none';
 
-  startGame();
+    resetGameButton.style.pointerEvents = '';
+    resetGameButton.textContent = 'SIM';
+  
+    clearTimeout(secondsLoop);
+    seconds = 3;
+    startGame();
+    
+  }, 3000);
+
 }
 
 const jump = () => {

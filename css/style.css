@@ -7,12 +7,16 @@
 body {
   width: 100vw;
   height: 100vh;
-  padding: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-board {
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 80%;
+  max-width: 1000px;
+  max-height: 800px;
   border-bottom: 8px solid rgb(35, 160, 35);
   background: linear-gradient(#87ceeb, #e0f6ff);
   margin: auto;
