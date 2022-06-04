@@ -4,14 +4,39 @@ const pipe = document.querySelector('.pipe');
 const gameBoard = document.querySelector('.game-board');
 const gameOverBoard = document.querySelector('.game-over-board');
 const resetGameButton = document.querySelector('#reset-game-button');
+const totalPoints = document.querySelector('#total-points');
+const totalPointsResult = document.querySelector('#total-points-result');
 
 let loop;
+let secondsToRestart = 3;
+let secondsToRestartLoop;
+let points = 0;
+let pointsLoop;
+
+const countSecondsToRestart = () => {
+  resetGameButton.style.pointerEvents = 'none';
+  resetGameButton.textContent = String(secondsToRestart);
+  
+  secondsToRestart -= 1;
+  secondsToRestartLoop = setTimeout(countSecondsToRestart, 1000);
+}
+const countPoints = () => {
+  totalPoints.textContent = String(points);
+  
+  points += 1;
+  pointsLoop = setTimeout(countPoints, 1500);
+}
+
 const startGame = () => {
   loop = setInterval(() => {
     const pipePosition = pipe.offsetLeft;
     const marioPosition = Number(window.getComputedStyle(mario).bottom.replace('px', ''));
 
+    
     if (pipePosition <= 80 && pipePosition > 10 && marioPosition < 70) {
+      clearTimeout(pointsLoop);
+      clearInterval(loop);
+
       pipe.style.animation = 'none';
       pipe.style.left = `${pipePosition}px`;
       
@@ -24,28 +49,15 @@ const startGame = () => {
 
       gameOverBoard.style.display = 'flex';
 
-      clearInterval(loop);
+      totalPointsResult.textContent = String(points -1); 
     }
   }, 10);
 };
-
-let seconds = 3;
-let secondsLoop;
-const countSecondsToRestart = () => {
-  console.log('second', seconds);
-  
-  resetGameButton.style.pointerEvents = 'none';
-  resetGameButton.textContent = String(seconds);
-
-  seconds -= 1;
-  secondsLoop = setTimeout(countSecondsToRestart, 1000);
-}
 
 const resetGame = async () => {
   countSecondsToRestart();
 
   setTimeout(() => {
-    console.log('count');
     pipe.style.animation = 'pipe-animation 1.5s infinite linear';
     pipe.style.left = '';
   
@@ -60,12 +72,14 @@ const resetGame = async () => {
     resetGameButton.style.pointerEvents = '';
     resetGameButton.textContent = 'SIM';
   
-    clearTimeout(secondsLoop);
-    seconds = 3;
-    startGame();
-    
-  }, 3000);
+    clearTimeout(secondsToRestartLoop);
 
+    secondsToRestart = 3;
+    points = 0;
+
+    startGame();
+    countPoints();
+  }, 3000);
 }
 
 const jump = () => {
@@ -79,4 +93,6 @@ const jump = () => {
 
 document.addEventListener('keydown', jump);
 document.addEventListener('touchend', jump);
+
 startGame();
+countPoints();

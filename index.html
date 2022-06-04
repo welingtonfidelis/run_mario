@@ -16,14 +16,16 @@
     <img src="./images/pipe.png" alt="pipe image" class="pipe">
     <img src="./images/game-over.png" alt="mario game over image" class="mario-game-over">
 
+    <span id="total-points">0</span>
   </div>
   
   <div class="game-over-board">
     <div class="game-over-content">
-      <span>Fim de Jogo</span>
-      <br/><br/>
-      <strong>Quer recomeçar?</strong>
+      <!-- <span>Fim de Jogo</span> -->
+      <img src="./images/game-over-text.gif" alt="game over text">
+      <span>Pontuação: <span id="total-points-result"></span></span>
       <br/>
+      <strong>Quer recomeçar?</strong>
       <button id="reset-game-button" onclick="resetGame()">SIM</button>
     </div>
   </div>
