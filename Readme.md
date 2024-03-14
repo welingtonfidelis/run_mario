@@ -3,8 +3,8 @@ Projeto base construido html, css e Js pra criação de um jogo simples de corri
 
 ## Apresentação
 
-file:///home/welington/Videos/Screencasts/Screencast%20from%2014-03-2024%2008:23:08.webm
 
+[Screencast from 14-03-2024 08:23:08.webm](https://github.com/welingtonfidelis/run_mario/assets/26190703/084af69e-a268-43bb-ae4c-2d292b7c4c61)
 
 ## Instalação
 Após clonar este projeto, abra o arquivo index.html em seu navegador e comece a jogar.
